@@ -84,7 +84,6 @@ namespace Mentors.Controllers
 
         public IActionResult Students()
         {
-
             return View(db.Students.ToList());
         }
 
@@ -145,9 +144,10 @@ namespace Mentors.Controllers
         [HttpGet]
         public IActionResult FindMentor()
         {
-            var fmDTO = new List<FindMentorDTO>();
-            fmDTO.Add(new FindMentorDTO { Tecnilogies = db.Tecnologies.ToList(), Countries = BussinesLogic.FindMentor.GetAllDifferentCounties(db) });
-
+            var fmDTO = new List<FindMentorDTO>
+            {
+                new FindMentorDTO { Tecnilogies = db.Tecnologies.ToList(), Countries = BussinesLogic.FindMentor.GetAllDifferentCounties(db) }
+            };
             return View(fmDTO);
         }
 

@@ -87,23 +87,9 @@ namespace Mentors.BussinesLogic
         }
         public static List<Mentor> FindMentors(int tecnologyId, string country, int downAge, int highAge, bool Vk, bool Fb, MentorsContext db)
         {
-            int criteriesCount = 5; //Because 5 criteries
-                     
-            if (country == null)            
-                criteriesCount--;            
-            if (downAge == 0 && highAge == 0)            
-                criteriesCount--;
-            if (!Vk)            
-                criteriesCount--;            
-            if (!Fb)            
-                criteriesCount--;
-
-            var allMentors = new List<Mentor>();
-            allMentors.AddRange(FindByTecnology(tecnologyId, db));
-            allMentors.AddRange(FindByAge(downAge, highAge, db));
-            allMentors.AddRange(FindByCountry(country, db));
-            allMentors.AddRange(FindByVk(Vk, db));
-            allMentors.AddRange(FindByFb(Fb, db));
+            int criteriesCount = GetCriteriesCount(tecnologyId, country, downAge, highAge, Vk, Fb, 5); //Because 5 criteries
+                 
+            var allMentors = AddMentorsByAllCriteriesToOneList(tecnologyId, country, downAge, highAge, Vk, Fb, db);           
             allMentors.Sort();
 
             if (criteriesCount == 0)            
@@ -119,9 +105,35 @@ namespace Mentors.BussinesLogic
             return mentors;
         }
 
+        private static List<Mentor> AddMentorsByAllCriteriesToOneList(int tecnologyId, string country, int downAge, int highAge, bool Vk, bool Fb, MentorsContext db)
+        {
+            var allMentors = new List<Mentor>();
+            allMentors.AddRange(FindByTecnology(tecnologyId, db));
+            allMentors.AddRange(FindByAge(downAge, highAge, db));
+            allMentors.AddRange(FindByCountry(country, db));
+            allMentors.AddRange(FindByVk(Vk, db));
+            allMentors.AddRange(FindByFb(Fb, db));
+
+            return allMentors;
+        }
+        private static int GetCriteriesCount(int tecnologyId, string country, int downAge, int highAge, bool Vk, bool Fb, int maxCriteriesCount)
+        {
+            int criteriesCount = 5;
+
+            if (country == null)
+                criteriesCount--;
+            if (downAge == 0 && highAge == 0)
+                criteriesCount--;
+            if (!Vk)
+                criteriesCount--;
+            if (!Fb)
+                criteriesCount--;
+
+            return criteriesCount;
+        }
 
 
 
-        
+
     }
 }
