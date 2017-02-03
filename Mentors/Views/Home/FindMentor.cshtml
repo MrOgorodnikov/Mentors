@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Mentors.Models.DTO.FindMentorDTO>
+@{
+    Layout = null;
+}
+
+<!Doctype html>
+<html>
+<head>
+    <title>
+        Mentors and their students
+    </title>
+</head>
+<body>
+    <form action="FindMentor" method="post">
+        Напрямок : 
+        <select name="tecnologyId">
+            <option value=""></option>
+            @foreach (var view in Model)
+            {
+                foreach (var tecnology in view.Tecnilogies)
+                {
+                    <option value="@tecnology.Id">@tecnology.Name</option>
+                }
+
+            }
+        </select>
+        Країна : 
+        <select name="country">
+            <option value=""></option>
+            @foreach (var view in Model)
+            {
+                foreach (var country in view.Countries)
+                {
+                    <option value="@country">@country</option>
+                }
+            }
+        </select>
+        Vk <input type="checkbox" name="Vk" value="1"/>
+        Fb <input type="checkbox" name="Fb" value="1" />
+        <p>Вік від <input type="number" name="downAge" value="" />до <input type="number" name="highAge" value="" /> років</p>
+        <p>
+            
+        </p>
+        <input type="submit" />
+    </form>
+
+</body>
+</html>

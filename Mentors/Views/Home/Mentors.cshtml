@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Mentors.Models.DTO.MentorTecnologyDTO>
+@{ 
+    Layout = null; 
+}
+
+
+
+<!Doctype html>
+<html>
+<head>
+    <title>
+        Mentors
+    </title>
+</head>
+<body>
+
+    <table>
+        <tr>
+            <td>Name</td>
+            <td>Surname</td>
+            <td>Age</td>
+            <td>Experience</td>
+            <td>Work</td>
+            <td>Students</td>
+            <td>Max Students</td>
+            <td>Tecnology</td>
+            <td>Country</td>
+            <td>City</td>
+            <td>StudyPlace</td>
+            <td>Email</td>
+            <td>Phone</td>
+            <td>Vk</td>
+            <td>Facebook</td>
+            <td>LinkedIn</td>
+        </tr>
+
+        @foreach (var mentor in Model)
+        {
+            <tr>
+                <td>@mentor.Mentor.Name</td>
+                <td>@mentor.Mentor.Surname</td>
+                <td>@mentor.Mentor.Age</td>
+                <td>@mentor.Mentor.ExperienceInYear</td>
+                <td>@mentor.Mentor.PlaceOfWork</td>
+                <td>@mentor.Mentor.CurrentStudentCount</td>
+                <td>@mentor.Mentor.MaxStudentCount</td>
+                <td>@mentor.Tecnology.Name</td>
+                
+                <td>@mentor.Mentor.Country</td>
+                <td>@mentor.Mentor.City</td>
+                <td>@mentor.Mentor.StudyPlace</td>
+                <td>@mentor.Mentor.Email</td>
+                <td>@mentor.Mentor.Phone</td>
+                <td>@mentor.Mentor.Vk</td>
+                <td>@mentor.Mentor.Facebook</td>
+                <td>@mentor.Mentor.LinkedIn</td>
+                <td><a href="~/Home/ChangeMentorInfo/@mentor.Mentor.Id">Change</a></td>
+
+            </tr>
+        }
+    </table>
+    <p><a href="~/Home/AddMentor">Add new Mentor</a></p>
+</body>
+</html>   

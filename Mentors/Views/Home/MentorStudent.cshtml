@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Mentors.Models.DTO.MentorStudentDTO>
+@{
+    Layout = null;
+}
+
+<!Doctype html>
+<html>
+<head>
+    <title>
+        Mentors and their students
+    </title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>SurName</td>
+            <td>Age</td>
+            <td>Student Id</td>
+            <td>Student name</td>
+            <td>Student surname</td>
+        </tr>
+        @foreach (var mentStud in Model)
+        {
+            <tr>
+                <td>@mentStud.Mentor.Id</td>
+                <td>@mentStud.Mentor.Name</td>
+                <td>@mentStud.Mentor.Surname</td>
+                <td>@mentStud.Mentor.Age</td>
+                <td>@mentStud.Student.Id</td>
+                <td>@mentStud.Student.Name</td>
+                <td>@mentStud.Student.Surname</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>    

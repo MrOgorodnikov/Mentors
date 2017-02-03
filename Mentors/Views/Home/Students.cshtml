@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Mentors.Models.Student>
+@{
+    Layout = null;
+}
+
+<!Doctype html>
+<html>
+<head>
+    <title>
+        Stusents
+    </title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>Name</td>
+            <td>Surname</td>
+            <td>Age</td>
+            
+        </tr>
+        @foreach(var student in Model)
+        {
+            <tr>
+                <td>@student.Name</td>
+                <td>@student.Surname</td>
+                <td>@student.Age</td>
+
+                
+                <td><a href="~/Home/MoreAboutStudent/@student.Id">More Info</a></td>
+            </tr>
+        }
+    </table>
+
+    <a href="~/Home/AddStudent">Add new student</a>
+</body>
+</html>

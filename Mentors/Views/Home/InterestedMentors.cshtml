@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Mentors.Models.Mentor>
+@{
+    Layout = null;
+}
+
+<!Doctype html>
+<html>
+<head>
+    <title>
+        Mentors and their students
+    </title>
+</head>
+<body>
+    @foreach (var mentor in Model)
+    {
+        <a href="#">           
+            <p>@mentor.Name @mentor.Surname</p>
+        </a>
+        <p>Свободно мест: @mentor.FreeStudentCount</p>
+        if (mentor.Vk != null)
+        {
+            <p><a href="https://@mentor.Vk">Vk</a></p>
+        }
+        if (mentor.Facebook != null)
+        {
+            <p><a href="https://@mentor.Facebook">Fb</a></p>
+        }
+        <p>----------------</p>
+            
+        
+    }
+</body>
+</html>

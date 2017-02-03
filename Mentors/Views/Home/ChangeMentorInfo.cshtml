@@ -1,0 +1,54 @@
+﻿@model Mentors.Models.DTO.MentorTecnologiesDTO
+
+@{
+    Layout = null;
+}
+
+<!Doctype html>
+<html>
+<head>
+    <title>
+        @Model.Mentor.Name @Model.Mentor.Surname
+    </title>
+</head>
+<body>
+    <form method="post">
+        <input type="hidden" value="@ViewBag.MentorId" name="Id" />
+
+        <p>Name: <input type="text" value=@Model.Mentor.Name name="Name"/></p>
+        <p>Surname: <input type="text" value=@Model.Mentor.Surname name="Surname"/></p>
+        <p>Age: <input type="number" value=@Model.Mentor.Age name="Age"/></p>
+        <p>Place of work: <input type="text" value=@Model.Mentor.PlaceOfWork name="PlaceOfWork"/></p>    
+        <p>Max student count: <input type="number" value=@Model.Mentor.MaxStudentCount name="MaxStudentCount"/></p>
+        <p>Experience: <input type="number" value="@Model.Mentor.ExperienceInYear" name="ExperienceInYear" /></p>
+        <p>Country <input type="text" name="Country" value="@Model.Mentor.Country" /></p>
+        <p>City <input type="text" name="City" value="@Model.Mentor.City" /></p>
+        <p>StudyPlace <input type="text" name="StudyPlace" value="@Model.Mentor.StudyPlace" /></p>
+        <p>Email <input type="text" name="Email" value="@Model.Mentor.Email" /></p>
+        <p>Phone <input type="number" name="Phone" value="@Model.Mentor.Phone" /></p>
+        <p>Vk <input type="text" name="Vk" value="@Model.Mentor.Vk" /></p>
+        <p>Facebook <input type="text" name="Facebook" value="@Model.Mentor.Facebook" /></p>
+        <p>LinkedIn <input type="text" name="LinkedIn" value="@Model.Mentor.LinkedIn" /></p>                  
+                
+        @foreach (var t in Model.AllTecnologies)
+        {
+            @t.Name 
+
+            @if (Model.MentorsTecnologies.Contains(t))
+            {               
+                <input type="checkbox" name="@t.Id" value="@t.Name" checked />
+            }
+            else
+            {
+                <input type="checkbox" name="@t.Id " value="@t.Name" />
+
+            }
+        }
+
+        <p><input type="submit" name="Submmit" />
+    </form>
+
+
+
+</body>
+</html>

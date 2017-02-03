@@ -1,0 +1,41 @@
+﻿@model Mentors.Models.View.StudentView
+@{
+    Layout = null;
+}
+
+<!Doctype html>
+<html>
+<head>
+    <title>
+        @Model.Student.Name
+    </title>
+</head>
+<body>
+    <p>Name: @Model.Student.Name</p>
+    <p>Surname: @Model.Student.Surname</p>
+    <p>Age: @Model.Student.Age</p>
+    <p>Country : @Model.Student.Country</p>
+    <p>City : @Model.Student.City</p>
+    <p>StudyPlace : @Model.Student.StudyPlace</p>
+    <p>Email : @Model.Student.Email</p>
+    <p>Phone : @Model.Student.Phone</p>
+    <p>Vk :  <a href="https://@Model.Student.Vk">@Model.Student.Vk</a></p>
+    <p>Facebook : <a href="https://@Model.Student.Facebook">@Model.Student.Facebook</a></p>
+    <p>LinkedIn : <a href="https://@Model.Student.LinkedIn">@Model.Student.LinkedIn</a></p>
+    <p>Mentors:</p>
+    @foreach (var mentor in Model.Mentors)
+    {
+        <p>@mentor.Name @mentor.Surname</p>
+    }
+    <p>Tecnologies: </p>
+    @foreach(var tecnology in Model.StudentTecnologies)
+    {
+        <p></p>@tecnology.Name
+    }
+       
+    <p><a href="~/Home/EditStudent/@Model.Student.Id">Edit</a></p>
+
+
+
+</body>
+</html>

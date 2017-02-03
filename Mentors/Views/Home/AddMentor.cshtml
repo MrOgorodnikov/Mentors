@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Mentors.Models.Tecnology>
+@{
+    Layout = null;
+}
+
+<!Doctype html>
+<html>
+<head>
+    <title>
+        Add new mentor
+    </title>
+</head>
+<body>
+    <form method="post">
+        
+        <p>Name: <input type="text" value="" name="Name" /></p>
+        <p>Surname: <input type="text" value="" name="Surname" /></p>
+        <p>Age: <input type="number" value="" name="Age" /></p>
+        <p>Place of work: <input type="text" value="" name="PlaceOfWork" /></p>
+        <p>Max student count: <input type="number" value="" name="MaxStudentCount" /></p>
+        <p>Experience: <input type="number" value="" name="ExperienceInYear" /></p>
+        <p>Country <input type="text" name="Country" /></p>
+        <p>City <input type="text" name="City" /></p>
+        <p>StudyPlace <input type="text" name="StudyPlace"/></p>
+        <p>Email <input type="text" name="Email"/></p>
+        <p>Phone <input type="number" name="Phone"/></p>
+        <p>Vk <input type="text" name="Vk"/></p>
+        <p>Facebook <input type="text" name="Facebook"/></p>
+        <p>LinkedIn <input type="text" name="LinkedIn"/></p>
+
+        @foreach (var t in Model)
+        {                        
+            @t.Name <input type="checkbox" name="@t.Id " value="@t.Name" />            
+        }
+
+        <p><input type="submit" name="Submmit" />
+    </form>
+
+
+
+</body>
+</html>
