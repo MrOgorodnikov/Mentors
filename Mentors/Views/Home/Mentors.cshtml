@@ -16,6 +16,7 @@
 
     <table>
         <tr>
+            <td>Id</td>
             <td>Name</td>
             <td>Surname</td>
             <td>Age</td>
@@ -24,11 +25,7 @@
             <td>Students</td>
             <td>Max Students</td>
             <td>Tecnology</td>
-            <td>Country</td>
-            <td>City</td>
-            <td>StudyPlace</td>
-            <td>Email</td>
-            <td>Phone</td>
+            
             <td>Vk</td>
             <td>Facebook</td>
             <td>LinkedIn</td>
@@ -37,6 +34,7 @@
         @foreach (var mentor in Model)
         {
             <tr>
+                <td>@mentor.Mentor.Id</td>
                 <td>@mentor.Mentor.Name</td>
                 <td>@mentor.Mentor.Surname</td>
                 <td>@mentor.Mentor.Age</td>
@@ -46,11 +44,7 @@
                 <td>@mentor.Mentor.MaxStudentCount</td>
                 <td>@mentor.Tecnology.Name</td>
                 
-                <td>@mentor.Mentor.Country</td>
-                <td>@mentor.Mentor.City</td>
-                <td>@mentor.Mentor.StudyPlace</td>
-                <td>@mentor.Mentor.Email</td>
-                <td>@mentor.Mentor.Phone</td>
+                
                 <td>@mentor.Mentor.Vk</td>
                 <td>@mentor.Mentor.Facebook</td>
                 <td>@mentor.Mentor.LinkedIn</td>

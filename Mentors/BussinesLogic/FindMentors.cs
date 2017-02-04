@@ -1,11 +1,14 @@
 ﻿using Mentors.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+
 
 namespace Mentors.BussinesLogic
 {
     public class FindMentor
     {
+        static MentorsContext db;
         public static List<string> GetAllDifferentCounties(MentorsContext db)
         {
             List<string> countries = new List<string>();
@@ -18,7 +21,7 @@ namespace Mentors.BussinesLogic
 
             return countries;
         }
-        private static List<Mentor> FindByTecnology(int tecnologyId, MentorsContext db)
+        private static List<Mentor> FindByTecnology(int tecnologyId)
         {
             if (tecnologyId == 0)
             {
@@ -33,7 +36,7 @@ namespace Mentors.BussinesLogic
 
             return mentors;
         }        
-        private static List<Mentor> FindByCountry(string country, MentorsContext db)
+        private static List<Mentor> FindByCountry(string country)
         {
             List<Mentor> mentors = new List<Mentor>();
             foreach (var mentor in db.Mentors.ToList())
@@ -46,7 +49,7 @@ namespace Mentors.BussinesLogic
 
             return mentors;
         }
-        private static List<Mentor> FindByAge(int downAge, int highAge, MentorsContext db)
+        private static List<Mentor> FindByAge(int downAge, int highAge)
         {            
             var mentors = new List<Mentor>();
             if (highAge == 0 && downAge != 0)
@@ -59,7 +62,7 @@ namespace Mentors.BussinesLogic
 
             return mentors;
         }
-        private static List<Mentor> FindByVk(bool Vk, MentorsContext db)
+        private static List<Mentor> FindByVk(bool Vk)
         {
             var mentors = new List<Mentor>();
             if (!Vk)
@@ -72,7 +75,7 @@ namespace Mentors.BussinesLogic
             }
             return mentors;
         }
-        private static List<Mentor> FindByFb(bool Fb, MentorsContext db)
+        private static List<Mentor> FindByFb(bool Fb)
         {
             var mentors = new List<Mentor>();
             if (!Fb)
@@ -85,11 +88,13 @@ namespace Mentors.BussinesLogic
             }
             return mentors;
         }
-        public static List<Mentor> FindMentors(int tecnologyId, string country, int downAge, int highAge, bool Vk, bool Fb, MentorsContext db)
+
+        public static List<Mentor> FindMentors(int tecnologyId, string country, int downAge, int highAge, bool Vk, bool Fb, MentorsContext context)
         {
+            db = context;
             int criteriesCount = GetCriteriesCount(tecnologyId, country, downAge, highAge, Vk, Fb, 5); //Because 5 criteries
                  
-            var allMentors = AddMentorsByAllCriteriesToOneList(tecnologyId, country, downAge, highAge, Vk, Fb, db);           
+            var allMentors = AddMentorsByAllCriteriesToOneList(tecnologyId, country, downAge, highAge, Vk, Fb);           
             allMentors.Sort();
 
             if (criteriesCount == 0)            
@@ -105,14 +110,14 @@ namespace Mentors.BussinesLogic
             return mentors;
         }
 
-        private static List<Mentor> AddMentorsByAllCriteriesToOneList(int tecnologyId, string country, int downAge, int highAge, bool Vk, bool Fb, MentorsContext db)
+        private static List<Mentor> AddMentorsByAllCriteriesToOneList(int tecnologyId, string country, int downAge, int highAge, bool Vk, bool Fb)
         {
             var allMentors = new List<Mentor>();
-            allMentors.AddRange(FindByTecnology(tecnologyId, db));
-            allMentors.AddRange(FindByAge(downAge, highAge, db));
-            allMentors.AddRange(FindByCountry(country, db));
-            allMentors.AddRange(FindByVk(Vk, db));
-            allMentors.AddRange(FindByFb(Fb, db));
+            allMentors.AddRange(FindByTecnology(tecnologyId));
+            allMentors.AddRange(FindByAge(downAge, highAge));
+            allMentors.AddRange(FindByCountry(country));
+            allMentors.AddRange(FindByVk(Vk));
+            allMentors.AddRange(FindByFb(Fb));
 
             return allMentors;
         }

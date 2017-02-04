@@ -11,13 +11,11 @@ namespace Mentors.Models
         public DbSet<Mentor> Mentors { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Tecnology> Tecnologies { get; set; }
-
-        public MentorsContext(DbContextOptions<MentorsContext> options) : base (options)
+        public MentorsContext(DbContextOptions<MentorsContext> options) : base(options)
         {
 
         }
 
-        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             MentorStudent(modelBuilder);

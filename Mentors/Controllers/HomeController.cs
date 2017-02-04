@@ -12,13 +12,13 @@ namespace Mentors.Controllers
 {
     public class HomeController : Controller
     {
-        MentorsContext db;
+        public static MentorsContext db;
 
         public HomeController(MentorsContext context)
         {
             db = context;
         }
-
+        
         public IActionResult Index()
         {
             return View();
