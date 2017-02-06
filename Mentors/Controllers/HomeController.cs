@@ -12,12 +12,7 @@ namespace Mentors.Controllers
 {
     public class HomeController : Controller
     {
-        public static MentorsContext db;
-
-        public HomeController(MentorsContext context)
-        {
-            db = context;
-        }
+        private MentorsContext db = new MentorsContext();
         
         public IActionResult Index()
         {
@@ -26,12 +21,12 @@ namespace Mentors.Controllers
 
         public IActionResult MentorStudent()
         {
-            return View(Home.CreateMentorStudentList(db));
+            return View(Home.CreateMentorStudentList());
         }
 
         public IActionResult Mentors()
         {
-            return View(Home.CreateMentorTecnologyList(db));
+            return View(Home.CreateMentorTecnologyList());
         }
 
         [HttpGet]
@@ -63,9 +58,16 @@ namespace Mentors.Controllers
         {
             db.Mentors.Update(mentor);
 
-            Home.DeleteMentorsTecnologies(mentor, db);
-            Home.AddTecnologiesToMentor(mentor, Request.Form.Keys.ToList(), db);
+            Home.DeleteMentorsTecnologies(mentor);
+            Home.AddTecnologiesToMentor(mentor, Request.Form.Keys.ToList());
 
+            return Redirect("~/Home/Mentors");
+        }
+
+        [HttpPost]
+        public RedirectResult DeleteMentor(int mentorId)
+        {
+            Home.DeleteMentor(mentorId);
             return Redirect("~/Home/Mentors");
         }
 
@@ -77,7 +79,11 @@ namespace Mentors.Controllers
         [HttpPost]
         public RedirectResult AddMentor(Mentor mentor)
         {
-            Home.AddMentor(mentor, Request.Form.Keys.ToList(), db);
+            //if (ModelState.IsValid)
+            //    Home.AddMentor(mentor, Request.Form.Keys.ToList());
+            //else
+            //    // return View(mentor);
+            //    return Redirect("~/Home/AddMentor");
 
             return Redirect("~/Home/Mentors");
         }
@@ -85,6 +91,13 @@ namespace Mentors.Controllers
         public IActionResult Students()
         {
             return View(db.Students.ToList());
+        }
+
+        [HttpPost]
+        public RedirectResult DeleteStudent(int studentId)
+        {
+            Home.DeleteStudent(studentId);
+            return Redirect("~/Home/Students");
         }
 
         public IActionResult MoreAboutStudent(int id)
@@ -102,8 +115,8 @@ namespace Mentors.Controllers
         public RedirectResult EditStudent(Student student)
         {
             db.Students.Update(student);
-            Home.DeleteStudentTecnologies(student, db);
-            Home.AddTecnologiesToStudent(student, Request.Form.Keys.ToList(), db);
+            Home.DeleteStudentTecnologies(student);
+            Home.AddTecnologiesToStudent(student, Request.Form.Keys.ToList());
 
             return Redirect("~/Home/Students");
         }
@@ -136,7 +149,7 @@ namespace Mentors.Controllers
         [HttpPost]
         public RedirectResult AddStudent(Student student)
         {
-            Home.AddStudent(student, Request.Form.Keys.ToList(), db);
+            Home.AddStudent(student, Request.Form.Keys.ToList());
 
             return Redirect("~/Home/Students");
         }
@@ -146,7 +159,7 @@ namespace Mentors.Controllers
         {
             var fmDTO = new List<FindMentorDTO>
             {
-                new FindMentorDTO { Tecnilogies = db.Tecnologies.ToList(), Countries = BussinesLogic.FindMentor.GetAllDifferentCounties(db) }
+                new FindMentorDTO { Tecnilogies = db.Tecnologies.ToList(), Countries = BussinesLogic.FindMentor.GetAllDifferentCounties() }
             };
             return View(fmDTO);
         }
@@ -169,8 +182,7 @@ namespace Mentors.Controllers
         [HttpGet]
         public IActionResult InterestedMentors(int tecnologyId, string country, int highAge, int downAge, bool Vk, bool Fb)
         {            
-            return View(BussinesLogic.FindMentor.FindMentors(tecnologyId, country, downAge, highAge,  Vk,  Fb, db));
-            
+            return View(BussinesLogic.FindMentor.FindMentors(tecnologyId, country, downAge, highAge,  Vk,  Fb));            
         }
     }
 }

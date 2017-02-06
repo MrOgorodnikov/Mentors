@@ -13,7 +13,7 @@
     </title>
 </head>
 <body>
-
+    <form action="DeleteMentor" method="post" id="form"></form>
     <table>
         <tr>
             <td>Id</td>
@@ -33,6 +33,7 @@
 
         @foreach (var mentor in Model)
         {
+            
             <tr>
                 <td>@mentor.Mentor.Id</td>
                 <td>@mentor.Mentor.Name</td>
@@ -49,7 +50,14 @@
                 <td>@mentor.Mentor.Facebook</td>
                 <td>@mentor.Mentor.LinkedIn</td>
                 <td><a href="~/Home/ChangeMentorInfo/@mentor.Mentor.Id">Change</a></td>
-
+               <td>
+                    <form action="DeleteMentor" method="post">
+                        <input type="hidden" name="mentorId" value="@mentor.Mentor.Id" />
+                        <input type="submit" value="Delete"/>
+                   </form>
+               </td>
+                
+               
             </tr>
         }
     </table>

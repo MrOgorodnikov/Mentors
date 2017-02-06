@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<Mentors.Models.DTO.MentorStudentDTO>
 @{
     Layout = "_Layout";
+    
 }
 
 <!Doctype html>
@@ -11,11 +12,9 @@
     </title>
 </head>
 <body>
-    
-    <p></p><a href="~/Home/MentorStudent">Mentors with Students</a>
-    <p></p><a href="~/Home/Mentors">Mentors</a>
-    <p></p><a href="~/Home/Students">Students</a>
-    <p><a href="~/Home/FindMentor">Find Mentor</a></p>
-        
+    <p><a asp-controller="Home" asp-action="MentorStudent">Mentors with Students</a></p>
+    <p><a asp-controller="Home" asp-action="Mentors">Mentors</a></p>
+    <p><a asp-controller="Home" asp-action="Students">Students</a></p>
+    <p><a asp-controller="Home" asp-action="FindMentor">Find Mentor</a> </p>
 </body>
 </html>    

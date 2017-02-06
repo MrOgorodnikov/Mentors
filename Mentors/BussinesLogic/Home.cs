@@ -8,8 +8,9 @@ namespace Mentors.BussinesLogic
 {
     public class Home
     {
-        public static List<MentorTecnologyDTO> CreateMentorTecnologyList(MentorsContext db)
+        public static List<MentorTecnologyDTO> CreateMentorTecnologyList()
         {
+            var db = new MentorsContext();
             var mtDTO = new List<MentorTecnologyDTO>();
             var mentorList = db.Mentors
                             .Include(mt => mt.MentorTecnology)
@@ -27,8 +28,9 @@ namespace Mentors.BussinesLogic
             return mtDTO;
         }
 
-        public static List<MentorStudentDTO> CreateMentorStudentList(MentorsContext db)
+        public static List<MentorStudentDTO> CreateMentorStudentList()
         {
+            var db = new MentorsContext();
             var msDTO = new List<MentorStudentDTO>();
             var mentorList = db.Mentors
                             .Include(ms => ms.MentorStudent)
@@ -46,8 +48,9 @@ namespace Mentors.BussinesLogic
             return msDTO;
         }
 
-        public static void AddMentor(Mentor mentor, List<string> requestFormKeys, MentorsContext db)
+        public static void AddMentor(Mentor mentor, List<string> requestFormKeys)
         {
+            var db = new MentorsContext();
             var newMentor = new Mentor
             {
                 Name = mentor.Name,
@@ -59,11 +62,12 @@ namespace Mentors.BussinesLogic
             };
             db.Mentors.Add(newMentor);
             db.SaveChanges();
-            AddTecnologiesToMentor(newMentor, requestFormKeys, db);            
+            AddTecnologiesToMentor(newMentor, requestFormKeys);            
         }
 
-        public static void AddStudent(Student student, List<string> requestFormKeys, MentorsContext db)
+        public static void AddStudent(Student student, List<string> requestFormKeys)
         {
+            var db = new MentorsContext();
             var newStudent = new Student
             {
                 Name = student.Name,
@@ -72,11 +76,12 @@ namespace Mentors.BussinesLogic
             };
             db.Students.Add(newStudent);
             db.SaveChanges();
-            AddTecnologiesToStudent(newStudent, requestFormKeys, db);
+            AddTecnologiesToStudent(newStudent, requestFormKeys);
         }
        
-        public static void DeleteMentorsTecnologies(Mentor mentor, MentorsContext db)
+        public static void DeleteMentorsTecnologies(Mentor mentor)
         {
+            var db = new MentorsContext();
             var ment = db.Mentors.Include(m => m.MentorTecnology).First(m => m.Id == mentor.Id);
             var mentorTecnologyCount = ment.MentorTecnology.Count;
             for (int i = 0; i < mentorTecnologyCount; i++)
@@ -87,8 +92,9 @@ namespace Mentors.BussinesLogic
             }
         }
 
-        public static void DeleteStudentTecnologies(Student student, MentorsContext db)
+        public static void DeleteStudentTecnologies(Student student)
         {
+            var db = new MentorsContext();
             var stud = db.Students.Include(s => s.StudentTecnology).First(s => s.Id == student.Id);
             var studentTecnologyCount = stud.StudentTecnology.Count;
             for (int i = 0; i < studentTecnologyCount; i++)
@@ -98,8 +104,9 @@ namespace Mentors.BussinesLogic
             }
         }
 
-        public static void AddTecnologiesToMentor(Mentor mentor, List<string> requestFormKeys, MentorsContext db)
+        public static void AddTecnologiesToMentor(Mentor mentor, List<string> requestFormKeys)
         {
+            var db = new MentorsContext();
             foreach (var x in requestFormKeys)
             {
                 if (int.TryParse(x, out int id))
@@ -118,8 +125,9 @@ namespace Mentors.BussinesLogic
             db.SaveChanges();
         }
 
-        public static void AddTecnologiesToStudent(Student student, List<string> requestFormKeys, MentorsContext db)
+        public static void AddTecnologiesToStudent(Student student, List<string> requestFormKeys)
         {
+            var db = new MentorsContext();
             foreach (var x in requestFormKeys)
             {
                
@@ -140,6 +148,19 @@ namespace Mentors.BussinesLogic
             db.SaveChanges();
         }
 
+        public static void DeleteMentor(int mentorId)
+        {
+            var db = new MentorsContext();
+            db.Mentors.Remove(db.Mentors.FirstOrDefault(m => m.Id == mentorId));
+            db.SaveChanges();
+        }
+
+        public static void DeleteStudent(int studentId)
+        {
+            var db = new MentorsContext();
+            db.Students.Remove(db.Students.FirstOrDefault(s => s.Id == studentId));
+            db.SaveChanges();
+        }
 
     }
 }

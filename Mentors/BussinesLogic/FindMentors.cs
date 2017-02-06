@@ -8,8 +8,8 @@ namespace Mentors.BussinesLogic
 {
     public class FindMentor
     {
-        static MentorsContext db;
-        public static List<string> GetAllDifferentCounties(MentorsContext db)
+        static MentorsContext db = new MentorsContext();
+        public static List<string> GetAllDifferentCounties()
         {
             List<string> countries = new List<string>();
 
@@ -89,9 +89,8 @@ namespace Mentors.BussinesLogic
             return mentors;
         }
 
-        public static List<Mentor> FindMentors(int tecnologyId, string country, int downAge, int highAge, bool Vk, bool Fb, MentorsContext context)
-        {
-            db = context;
+        public static List<Mentor> FindMentors(int tecnologyId, string country, int downAge, int highAge, bool Vk, bool Fb)
+        {           
             int criteriesCount = GetCriteriesCount(tecnologyId, country, downAge, highAge, Vk, Fb, 5); //Because 5 criteries
                  
             var allMentors = AddMentorsByAllCriteriesToOneList(tecnologyId, country, downAge, highAge, Vk, Fb);           

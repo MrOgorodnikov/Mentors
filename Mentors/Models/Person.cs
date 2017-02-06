@@ -9,9 +9,9 @@ namespace Mentors.Models
     public class Person
     {
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Не указано имя")]
         public string Name { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Не указано фамилию")]
         public string Surname { get; set; }
         public int Age { get; set; }
         public string Country { get; set; }
